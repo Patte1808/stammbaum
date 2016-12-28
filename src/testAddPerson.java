@@ -64,4 +64,66 @@ public class testAddPerson {
 		assertEquals(firstPerson, thirdPerson.getChildren().get(0));
 		assertEquals(secondPerson, thirdPerson.getChildren().get(1));
 	}
+	
+	@Test
+	public void testRelationshipsFromGrandmotherOverAuntToFather() {
+		Person grandmother1 = new Person("Grandmother1", 40, Gender.Female);
+		Person grandfather1 = new Person("Grandfather1", 44, Gender.Male);
+		
+		Person grandmother2 = new Person("Grandmother2", 30, Gender.Female);
+		Person grandfather2 = new Person("Grandfather2", 40, Gender.Male);
+		
+		Person aunt1 = new Person("Aunt1", 10, Gender.Female);
+		Person aunt2 = new Person("Aunt2", 12, Gender.Female);
+		
+		Person uncle1 = new Person("Uncle1", 12, Gender.Male);
+		Person uncle2 = new Person("Uncle2", 20, Gender.Male);
+		
+		Person mother = new Person("Mother", 20, Gender.Female);
+		Person father = new Person("Father", 30, Gender.Male);
+		
+		Person child = new Person("Child", 1, Gender.Male);
+		
+		Person cousin1 = new Person("Cousin1", 2, Gender.Male);
+		Person cousin2 = new Person("Cousin2", 3, Gender.Female);
+		
+		grandmother1.setSpouse(grandfather1);
+		grandmother1.setChildren(mother);
+		grandmother1.setChildren(aunt1);
+		grandmother1.setChildren(uncle1);
+		
+		grandmother2.setSpouse(grandfather2);
+		grandmother2.setChildren(father);
+		grandmother2.setChildren(aunt2);
+		grandmother2.setChildren(uncle2);
+		
+		mother.setSpouse(father);
+		mother.setChildren(child);
+		
+		uncle1.setChildren(cousin1);
+		uncle2.setChildren(cousin2);
+		
+		assertEquals(aunt1, child.aunts(Gender.Female).get(0));
+		assertEquals(uncle1, child.uncles(Gender.Female).get(0));
+		
+		assertEquals(aunt2, child.aunts(Gender.Male).get(0));
+		assertEquals(uncle2, child.uncles(Gender.Male).get(0));
+		
+		// IndexOutOfBoundsException. Scheinbar kann man nicht direkt den Vater abfragen, wenn
+		// man die Mutter als "Parent" angibt?
+		assertEquals(father, child.getFather().get(0));
+		assertEquals(mother, child.getMother().get(0));
+		
+		// Könnte man hier nicht auch so was wie bei den aunts und uncles machen?
+		// Das ich direkt am Kinderobjekt abfragen kann, wer Großmutter mütterlicherseits ist etc?
+		assertEquals(child, grandmother1.grandchildren().get(0));
+		assertEquals(child, grandmother2.grandchildren().get(0));
+		assertEquals(child, grandfather1.grandchildren().get(0));
+		assertEquals(child, grandfather2.grandchildren().get(0));
+		
+		// Hier das gleiche wie bei den Großeltern. Ich weiß nicht, wie ich das sonst 
+		// besser testen kann.Hast Du eine Idee?
+		assertEquals(cousin1, child.cousins().get(0));
+		assertEquals(cousin2, child.cousins().get(1));
+	}
 }
