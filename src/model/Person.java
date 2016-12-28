@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Person {
 	
@@ -12,7 +13,6 @@ public class Person {
 	private Person parent;
 	private List<Person> children;
 	private Person spouse;
-	
 	
 	
 	
@@ -32,14 +32,14 @@ public class Person {
 	 * @param person
 	 * @return if two objects of type person are equal
 	 */
-	public boolean equals(Person person) {
+	/*public boolean equals(Person person) {
 		if(this.name == person.name) {
 			if(this.age == person.age) {
 				return true;
 			}
 		}
 		return false;
-	}
+	}*/
 	
 	
 	

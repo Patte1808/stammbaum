@@ -143,4 +143,12 @@ public class testAddPerson {
 			assertEquals(expected, e.getMessage());
 		}
 	}
+	
+	@Test
+	public void testDistinctionOfTwoObjectsWithSameAttributes() {
+		Person person1 = new Person("Person", 2, Gender.Male);
+		Person person2 = new Person("Person", 2, Gender.Male);
+		
+		assertEquals(false, person1.equals(person2));
+	}
 }
