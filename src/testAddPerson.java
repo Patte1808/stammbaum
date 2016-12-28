@@ -145,6 +145,28 @@ public class testAddPerson {
 	}
 	
 	@Test
+	public void testParentSpouseRelationship() {
+		Person person1 = new Person("Person1", 2, Gender.Female);
+		Person person2 = new Person("Person2", 2, Gender.Male);
+		
+		person1.setChildren(person2);
+		
+		/* 
+		 * Idee: Ein Elternteil sollte nicht mit seinem eigenen Kind verheiratet sein
+		 * Ist das Objekt bereits Kind von dem Objekt, mit dem man es verheiraten soll,
+		 * sollte ein Fehler geschmissen werden
+		 */
+		try {
+			person2.setSpouse(person1);
+			fail();
+		} catch(Exception e) {
+			// TODO ERROR MESSAGE ANPASSEN
+			final String expected = "Error bla";
+			assertEquals(expected, e.getMessage());
+		}
+	}
+	
+	@Test
 	public void testDistinctionOfTwoObjectsWithSameAttributes() {
 		Person person1 = new Person("Person", 2, Gender.Male);
 		Person person2 = new Person("Person", 2, Gender.Male);
