@@ -34,5 +34,34 @@ public class testAddPerson {
 		assertEquals(secondPerson, firstPerson.getSpouse());
 		assertEquals(firstPerson, secondPerson.getSpouse());
 	}
+	
+	// Todo: Zyklen testen, Baum aufbauen und zusammenhangslose Person
+	
+	@Test
+	public void addTwoPersonsAsSiblings() {
+		Person firstPerson = new Person("Test", 0, Gender.Male);
+		Person secondPerson = new Person("Test2", 10, Gender.Female);
+		Person thirdPerson = new Person("Parent 1", 20, Gender.Male);
+		
+		firstPerson.setParent(thirdPerson);
+		secondPerson.setParent(thirdPerson);
+		
+		thirdPerson.setChildren(firstPerson);
+		thirdPerson.setChildren(secondPerson);
+		
+		FamilyTree famTree = new FamilyTree();
+		
+		famTree.add(firstPerson);
+		famTree.add(secondPerson);
+		famTree.add(thirdPerson);
 
+		assertEquals(firstPerson, secondPerson.siblings().get(0));
+		assertEquals(secondPerson, firstPerson.siblings().get(0));
+		
+		assertEquals(thirdPerson, firstPerson.getParent());
+		assertEquals(thirdPerson, secondPerson.getParent());
+		
+		assertEquals(firstPerson, thirdPerson.getChildren().get(0));
+		assertEquals(secondPerson, thirdPerson.getChildren().get(1));
+	}
 }
