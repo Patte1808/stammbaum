@@ -126,4 +126,21 @@ public class testAddPerson {
 		assertEquals(cousin1, child.cousins().get(0));
 		assertEquals(cousin2, child.cousins().get(1));
 	}
+	
+	@Test
+	public void testForCycles() {
+		Person person1 = new Person("Person1", 2, Gender.Female);
+		Person person2 = new Person("Person2", 2, Gender.Male);
+		
+		person1.setParent(person2);
+		
+		try {
+			person2.setParent(person1);
+			fail();
+		} catch(Exception e) {
+			// TODO ERROR MESSAGE ANPASSEN
+			final String expected = "Error bla";
+			assertEquals(expected, e.getMessage());
+		}
+	}
 }
