@@ -137,9 +137,9 @@ public class testAddPerson {
 		try {
 			person2.setParent(person1);
 			fail();
-		} catch(Exception e) {
+		} catch(IllegalArgumentException e) {
 			// TODO ERROR MESSAGE ANPASSEN
-			final String expected = "Error bla";
+			final String expected = "existing cycle";
 			assertEquals(expected, e.getMessage());
 		}
 	}
@@ -161,7 +161,7 @@ public class testAddPerson {
 			fail();
 		} catch(Exception e) {
 			// TODO ERROR MESSAGE ANPASSEN
-			final String expected = "Error bla";
+			final String expected = "existing cycle";
 			assertEquals(expected, e.getMessage());
 		}
 	}
