@@ -43,11 +43,11 @@ public class testAddPerson {
 		Person secondPerson = new Person("Test2", 10, Gender.Female);
 		Person thirdPerson = new Person("Parent 1", 20, Gender.Male);
 		
-		firstPerson.setParent(thirdPerson);
-		secondPerson.setParent(thirdPerson);
-		
 		thirdPerson.setChildren(firstPerson);
 		thirdPerson.setChildren(secondPerson);
+		
+		firstPerson.setParent(thirdPerson);
+		secondPerson.setParent(thirdPerson);
 		
 		FamilyTree famTree = new FamilyTree();
 		

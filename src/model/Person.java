@@ -120,7 +120,9 @@ public class Person {
         if(parent.existingCycle(this)) throw new IllegalArgumentException("existing cycle");
         if(this.parent == null) { 
             this.parent = parent;
-            parent.setChildren(this);
+            
+            if(parent.containsChild(this) == false)
+            	parent.setChildren(this);
         }
         else if(!this.parent.equals(parent)) throw new IllegalArgumentException("parent is already set");
     }
@@ -129,9 +131,23 @@ public class Person {
     public List<Person> getChildren() {
         List<Person> returnList = new ArrayList<Person>();
         returnList.addAll(children);
-        returnList.addAll(spouse.children);
+        if(spouse != null)
+        	returnList.addAll(spouse.children);
         return returnList;
     }
+    
+    public boolean containsChild(Person child) {
+    	List<Person> children = this.getChildren();
+    	
+    	for (int i = 0; i < children.size(); i++) {
+    		if(children.get(i).equals(child)) {
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }
+    
     /**
      * adds the given person to the list of children the person has
      * the given person is not added if the list already contains it
@@ -275,7 +291,7 @@ public class Person {
         if(person != null) {
             if(this.equals(person)) return true;
             else {
-                return (this.existingCycle(person.parent) || this.existingCycle(person.spouse));
+                return (person.existingCycle(this.parent) || person.existingCycle(this.spouse));
             }
         }
         else return false;
